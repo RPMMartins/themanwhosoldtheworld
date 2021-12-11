@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static  %}
+			<figure  >
+                        <a href="{% static 'CV/pdf/CV_Rui_Martins.pdf' %}" download="CV_Rui_Martins" style="float: right">
+                        <button  class="btnn"   ><i class="fa fa-download"  >
+                        </i> Download CV</button></a>
+                        </figure>
+			<H1> Rui Pedro Mendonça Martins </h1>
+
+
+                        <p>Location: Zurich Swirzerland <br />
+                            Date of Birth: 06/10/1998 <br />
+                            Gender: Male <br />
+                            Email: <a class="email" href="mailto:ruimendonca11@gmail.com">ruimendonca11@gmail.com</a><br />
+                            Nationality: Portuguese</p>
+
+                        <p>
+                            HI! I'm Rui, this is my personal website/server.
+                            It is a test site for new mathematical tools revolving Mathematical Finance and Artificial Inteligence.
+                        </p>
+<hr>
+
+
+<figure style="float: right">
+  <img float= "right" src="{% static 'CV/img/Background.png' %}" alt="Profile Picture" style="width:100%" >
+  <figcaption>Picture Taken By:<br /> Prof. Catarina Santa <br /> Clara (FCUL)</figcaption>
+</figure> 
+
+
+<H2>
+Education:
+</H2>
+<p>2019-2021: <b>Swiss Federal Institute of Technology Zurich (ETHZ) </b>. 
+
+</p>
+<dd><p>
+Master degree in Mathematics.
+</p>
+</dd>
+<p>2018-2019: <b> Mathematics Institute of Warwick University. </b>
+</p>
+<dd><p>
+Undergraduate Erasmus+.
+</dd>
+<p>2016-2019: <b>Faculty of Sciences of Lisbon University (FCUL)</b>. 
+</p>
+</dd>
+<dd><p>
+Bachelor in Mathematics.
+</p>
+</dd>
+
+<H2>
+Recent Experience:
+</H2>
+<p>2021: <b>Chair of Macroeconomics: Innovation and Policy (ETHZ)</b>. 
+</p>
+<dd><p>
+Student Research Assistant. LaTeX Editor, Proof Reader and R Programmer.
+</p>
+</dd>
+<p>2020-2021: <b> Swiss Federal Institute of Technology Zurich. </b>
+</p>
+<dd><p>
+Teaching Assistant. Course of Complex Analysis 2020/2021. 
+</dd>
+<p>2020: <b>The Encyclopedia of Mathematics</b>. 
+</p>
+</dd>
+<dd><p>
+LaTeX editor.
+</p>
+</dd>
+
+
+
+<H2>
+Hard Skills
+</H2>
+            <dd>
+                
+<p>Experience in Python, Octave, R, SQL, HTML, CSS.</br>
+Familiar with web programing tools with Flask and Django.</br>
+Familiar in Linux server configuration with Apache2, mod_wsgi and Let’s Encrypt.</br>
+Proficiency in MS Office (Word, Power Point, Excel), MiKTeX LaTeX.
+</p>         
+            </dd>
+<H2>
+Languages
+</H2>
+            <dd>
+                
+<p style="padding-bottom: 400px;">Portuguese (native), English (C1), Spanish (B1) and German (A2).
+</p> 
+{% endblock %}

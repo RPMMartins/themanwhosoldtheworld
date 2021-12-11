@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static  %}
+		
+		  <H1>Website/Server Configuration</H1>
+
+                <div class="middle" style="padding-top: 10px" >This Website is hosted using a Python Django Framework within a personal Linux server using an Apache2 configuration. 
+                The physical server itself is running on a personal machine currently located in Lisbon.
+                It uses Ubuntu 18.04 server software running in a virtualBox enviroment, which is remotetly controled via SSH connection. 
+                The physical server is also controled via VPN connection. 
+                Furthemore the Apache2 configuration only allows for secure HTTPS connection which is certified by Let's Encrypt.
+                </div>    
+
+                
+
+
+                <figure >
+                    <img  src="{% static 'About_Website/img/model.jpg'   %}" alt="Profile Picture" class="centerr" >
+                    <figcaption>Current configuration of Website/Server. </figcaption>
+                </figure> 
+                
+                <H2> More to Come!</H2>
+                
+                <div class="middle" style="padding-top: 10px">
+    	            Currently the website doesn't have much to offer, but I don't intend to keep it that way for long.
+                    Since the website is built on top of a Django Framework, it allows for a great deal of flexibility for backend development. It also allows
+                    to take advantage of the full family of Python libraries for all kind of applications.
+                </div>
+
+                <div style="margin: 2% 0%">
+
+                </div>
+
+                <H2> Why "The Man Who Sold The World"?</H2>
+                
+                <div sytle="margin-top: 200px">
+                   <div class="middle" >
+                   
+    	            It's based on my favorite song from David Bowie. Checkout some of the best versions! 
+                    </div>
+                
+
+                <div class="middle" style="padding-bottom: 200px;">
+                    <dd style="margin-left: 20px">
+                        <a href="https://www.youtube.com/watch?v=g33-W9t2q2Q">Original Version</a></br>
+                        <a href="https://www.youtube.com/watch?v=fregObNcHC8">Nirvana Version</a></br>
+                        <a href="https://www.youtube.com/watch?v=mXHKjFKBC0g">Midge Ure Version</a>
+                    </dd>
+
+
+{% endblock  %}

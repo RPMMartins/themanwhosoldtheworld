@@ -1,0 +1,6 @@
+from django.http import HttpResponseRedirect
+
+
+##### redirects homepage to CV ####
+def index(request):
+path("", views.index, name="index")      return HttpResponseRedirect('/CV/')

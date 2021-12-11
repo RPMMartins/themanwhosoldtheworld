@@ -1,0 +1,41 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django import forms
+
+
+class StockForm(forms.Form):
+    newstock = forms.CharField(label="Select Stock")
+
+
+# Create your views here.
+
+stock="test"
+
+def index(request):
+
+	 if request.method == "POST":
+
+        # Take in the data the user submitted and save it as form
+        	form = NewTaskForm(request.POST)
+
+        # Check if form data is valid (server-side)
+        	if form.is_valid():
+
+            # Isolate the stock from the 'cleaned' version of form data
+            		stock = form.cleaned_data["stock"]
+
+            # Redirect user to list of tasks
+            		return render(request, "ARIMA/index.html", {
+                		"stock": stock,
+                		"form": StockForm()
+            		})
+
+	returnender(request, "ARIMA/index.html", {
+		"stock": stock,
+		"form": StockForm()
+	})
+
+
+

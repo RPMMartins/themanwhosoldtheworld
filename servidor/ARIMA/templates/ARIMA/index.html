@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static  %}
+    <h2 style="padding-top: 10px">ARIMA Forecast:</h2>
+    <p style="padding-top: 5px">
+    This application allows you to request an ARIMA fitting of any publicly traded company stock data. It takes advantage of the auto-arima function taken from the PMDARIMA python package. It provides a full parameter estimation and a series of Portmanteu statistical tests on the residuals. Finally it concludes with a 30 period forecast of future values with 95% percent confidence interval.  
+
+    </p>
+    <h3 style="padding-top: 5px" >Choose a Stock to Forecast.</h3>
+    <form action="{% url 'ARIMA:index' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+<p style="padding-top: 10px">e.g TSLA, NFLX, AAPL. Use
+<a href="https://stockanalysis.com/stocks/">full list of stock Symbols</a> to find a specific company.
+</p>
+ 	
+
+<!---- first we print out error text of invalid post requests----->
+
+        {% if  stock == "test"  %}
+       		<p style="text-align: center; padding-top: 90px;">You need to select a stock.</p>
+	{% elif datewrong %}
+		<p style="text-align: center; padding-top: 90px;" >You have submitted an invalid date.</p>
+	{% elif stockwrong%}
+                <p style="text-align: center; padding-top: 90px;">You have submitted an invalid stock name.</p>
+        {% elif notenough %}
+                <p style="text-align: center; padding-top: 90px;">You have not submitted enough data (at least 50 periods).</p>
+	{% elif nodata %}
+                <p style="text-align: center; padding-top: 90px;">There is no stock data for the time frame submitted.</p>	
+	{% else %}
+		 
+	
+		{% if plotstock   %}
+
+ 			<img src="data:image/png;base64, {{plotstock|safe}}" style="max-width:100%" >
+
+		{%  endif %}
+                <h2>(Partial) Auto Correlation Functions of Log Series</h2>
+		<hr>
+		{% if plotdif   %}
+
+                        <img src="data:image/png;base64, {{plotdif|safe}}" style="max-width:100%">
+                {%  endif %}
+
+                {% if plotacf   %}
+
+                        <img src="data:image/png;base64, {{plotacf|safe}}" style="max-width:100%">
+                {%  endif %}
+
+                {% if plotpacf   %}
+
+                        <img src="data:image/png;base64, {{plotpacf|safe}}" style="max-width:100%">
+                {%  endif %}
+
+
+		<h2 style="padding-bottom: 5px; padding-top: 30px;">Auto-ARIMA Results</h2>
+		<hr>
+		<table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
+                {% for i in AutoArimaResults1 %}
+			<tr>
+			{% for j in i %} 			
+				 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;" >
+			         {{j}}
+				</td>
+			{% endfor %}
+			</tr>
+		{% endfor %}
+		</table>
+
+ 		<h3 style="padding-bottom: 5px; padding-top: 30px;" >Parameter Estimation</h3>
+              
+                <table style="font-family: arial, sans-serif;
+                              border-collapse: collapse;
+                              width: 100%;">
+		<tr>
+    		 <th>Parameters</th>
+    		 <th>Values</th>
+    		 <th>Standard Error</th>
+                 <th>p-values</th>
+		 <th>95% Conf.Intervals</th>
+  		</tr>                
+		{% for i in AutoArimaResults2%}
+		  <tr>
+		  {%for j in i%}
+		    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; text-align: center;">	
+		    {{j}}
+	 	    </td>
+		  {% endfor %}
+	 	  </tr>
+		{% endfor %}     
+                </table>
+               
+		<h2 style="padding-top: 30px;" >Residuals</h2>
+		<hr>
+
+		<table style="font-family: arial, sans-serif;
+                              border-collapse: collapse;
+                              width: 100%;">
+                {% for i in AutoArimaResults3 %}
+                        <tr>
+                        {% for j in i %}
+                                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">    
+				{{j}}
+                                </td>
+                        {% endfor %}
+                        </tr>
+                {% endfor %}
+                </table>
+                {% if plotdiagnostics   %}
+
+                        <img src="data:image/png;base64, {{plotdiagnostics|safe}}" style="width:100%">
+            
+		<h2 style="padding-bottom: 5px;" >Portmanteau-Tests</h2>
+	        <table style="font-family: arial, sans-serif;
+                              border-collapse: collapse;
+                              width: 100%;">
+                {% for i in AutoArimaResults4 %}
+                        <tr>
+                        {% for j in i %}
+                                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+					{{j}}
+                                </td>
+                        {% endfor %}
+                        </tr>
+                {% endfor %}
+		</table>
+		{%  endif %}
+              	<h2 style="padding-bottom: 5px; padding-top: 30px;" >Forecast 30 Periods with 95% Confidence Intervals</h2>
+                <hr>
+
+                {% if plotforecast   %}
+
+                        <img src="data:image/png;base64, {{plotforecast|safe}}" style="max-width:100%; padding-bottom: 200px;">   
+                {%  endif %}                                             
+                                                              
+
+	{%  endif %}	
+	
+
+{% endblock %}

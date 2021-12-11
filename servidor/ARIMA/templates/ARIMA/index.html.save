@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static  %}
+    <h2>Choose stock to Forecast:</h2>
+    <form action="{% url 'ARIMA:index' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+<p>e.g TSLA, NFLX, AAPL. </p>
+ 	<ul>
+
+
+
+        {% if  stock == "test"  %}
+       		<p>You need to select a stock.</p>
+	{% elif datewrong %}
+		<p>You have inputed an invalid date</p>
+	{% else %}
+		 <p>You chose stock  {{ stock }} from x to y</p>
+	
+		{% if plotstock   %}
+
+ 			<img src="data:image/png;base64, {{plotstock|safe}}" style="max-width:100%" >
+
+		{%  endif %}
+                <h2>(Partial) Auto Correlation Functions of Log Series</h2>
+		<hr>
+		{% if plotdif   %}
+
+                        <img src="data:image/png;base64, {{plotdif|safe}}" style="max-width:100%">
+                {%  endif %}
+
+                {% if plotacf   %}
+
+                        <img src="data:image/png;base64, {{plotacf|safe}}" style="max-width:100%">
+                {%  endif %}
+
+                {% if plotpacf   %}
+
+                        <img src="data:image/png;base64, {{plotpacf|safe}}" style="max-width:100%">
+                {%  endif %}
+
+
+		<h2 style="padding-bottom: 5px; padding-top: 30px;">Auto-ARIMA Results</h2>
+		<hr>
+		<table style="font-family: arial, sans-serif; 
+			      border-collapse: collapse;    
+		  	      width: 100%;>
+                {% for i in AutoArimaResults1 %}
+			<tr style="background-color: #dddddd;">
+			{% for j in i %} 			
+				 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+				 {{j}}
+				</td>
+			{% endfor %}
+			</tr>
+		{% endfor %}
+		</table>
+
+ 		<h3 style="padding-bottom: 5px; padding-top: 30px;" >Parameter Estimation</h3>
+              
+                <table style="font-family: arial, sans-serif;
+                              border-collapse: collapse;
+                              width: 100%;">
+		<tr>
+    		 <th>Parameters</th>
+    		 <th>Values</th>
+    		 <th>Standard Error</th>
+                 <th>p-values</th>
+		 <th>95% Conf.Intervals</th>
+  		</tr>                
+		{% for i in AutoArimaResults2%}
+		  <tr>
+		  {%for j in i%}
+		    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px; text-align: center;">	
+		    {{j}}
+	 	    </td>
+		  {% endfor %}
+	 	  </tr>
+		{% endfor %}     
+                </table>
+               
+		<h2 style="padding-top: 30px;" >Residuals</h2>
+		<hr>
+
+		<table style="font-family: arial, sans-serif;
+                              border-collapse: collapse;
+                              width: 100%;">
+                {% for i in AutoArimaResults3 %}
+                        <tr>
+                        {% for j in i %}
+                                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">    
+				{{j}}
+                                </td>
+                        {% endfor %}
+                        </tr>
+                {% endfor %}
+                </table>
+                {% if plotdiagnostics   %}
+
+                        <img src="data:image/png;base64, {{plotdiagnostics|safe}}" style="width:100%">
+            
+		<h2 style="padding-bottom: 5px;" >Portmanteau-Tests</h2>
+	        <table style="font-family: arial, sans-serif;
+                              border-collapse: collapse;
+                              width: 100%;">
+                {% for i in AutoArimaResults4 %}
+                        <tr>
+                        {% for j in i %}
+                                 <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+					{{j}}
+                                </td>
+                        {% endfor %}
+                        </tr>
+                {% endfor %}
+		</table>
+		{%  endif %}
+              	<h2 style="padding-bottom: 5px; padding-top: 30px;" >Forecast</h2>
+                <hr>
+
+                {% if plotforecast   %}
+
+                        <img src="data:image/png;base64, {{plotforecast|safe}}" style="max-width:100%; padding-bottom: 200px;">   
+                {%  endif %}                                             
+                                                              
+
+	{%  endif %}	
+	</ul>
+
+{% endblock %}
