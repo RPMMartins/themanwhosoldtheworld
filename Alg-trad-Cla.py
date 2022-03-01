@@ -2,6 +2,7 @@
 #for the the views.py file of the REGRESSION app
 #in the django framework
 
+##################  Check the main function at the bottom for extra customization ##################
 
 
 ##################################################################
